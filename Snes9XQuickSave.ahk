@@ -5,10 +5,6 @@ SendMode InputThenPlay
 
 ; Minimum to be considered "pressed", between 1 (0.39%) and 255 (100%).
 Threshold = 64
-; Keys to bind to triggers.
-LT_Key = [
-RT_Key = ]
-
 
 LastRT := LastLT := LastStart := LastBack := 0
 XInput_Init()
@@ -25,12 +21,18 @@ while Hndl := WinExist("ahk_class Snes9X: WndClass") {
 				if((Back != LastBack) and Back)
 				{
 					WinActivate, ahk_id %Hndl%
-					Send {F1}
+					;one slot back
+					SendEvent {NumpadSub}
+					;load
+					SendEvent {NumpadMult}
 				}
 				if((Start != LastStart) and Start)
 				{
 					WinActivate, ahk_id %Hndl%
-					Send !fs1
+					;save
+					Send {NumpadDiv}
+					;one slot forward
+					Send {NumpadAdd}
 					
 				}				
 			}
